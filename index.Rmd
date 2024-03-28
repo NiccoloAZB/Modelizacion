@@ -1,0 +1,128 @@
+---
+title: "Tarea"
+author: "Nico"
+date: "2024-03-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Carga de librerias y los datos
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(leaflet)
+library(dplyr)
+library(moments) 
+library(repmis)
+library(tidyverse)
+
+#datos
+
+url.dat<- "http://bit.ly/Database-Estudiantes" 
+datosCompleto <- read.delim(url.dat)
+
+```
+
+# 1 A. Crear el dataframe 
+Creamos un dataset Considerando solamente las observaciones que van desde la 2 hasta la 193 y las variables que van desde la 5 hasta la  15 y las variables 20 y 35
+```{r}
+MisDatos <- datosCompleto[2:193,c(5:15,20:35)] 
+head(MisDatos)        #A) Por defecto, solo las primeras 6 observaciones  
+head(MisDatos, 3)     #B) Solo las primeras 3 observaciones  
+tail(MisDatos)        #C) Por defecto, solo las últimas 6 observaciones  
+tail(MisDatos, 2)     #D) Solo las últimas 2 observaciones 
+
+```
+# Revisamos la estructura
+```{r}
+str(MisDatos)   #A) Estructura de los datos 
+```
+# Explorar los nombres de las variables
+```{r}
+names(MisDatos)
+```
+# Explorar tamaños
+```{r}
+length(datosCompleto)
+
+dim(datosCompleto)  
+
+ncol(datosCompleto)
+
+nrow(datosCompleto)
+```
+# Revisar los tipos de todas las variables del nuevo data frame
+```{r}
+str(MisDatos)
+```
+# Construir una tabla de frecuencias para una variable categórica y su correspondiente diagrama de barras
+```{r}
+Ley <- as.factor(MisDatos$Ley)
+Tabla1 <- table(Ley); Tabla1
+Tabla1 <- table(Ley)
+barplot(Tabla1,                  
+        main="Ley",               
+        xlab="Eje X",                    
+        ylab="Eje Y",                    
+        legend = rownames(Tabla1),     
+        ylim = c(0, 300),                
+        col=c("pink","blue")             
+) 
+```
+
+
+# Construir una tabla de frecuencias cruzadas entre dos variables categóricas y su correspondiente diagrama de barras
+```{r}
+Colegio <- as.factor(MisDatos$Colegio)
+Tabla2 <- table(Ley, Colegio); Tabla2
+Tabla2 <- table(Colegio, Ley)
+
+barplot(Tabla2,
+main="Diagrama de barras",
+xlab="Posicion sobre la ley",                         
+ylab="Cantidad de estudiantes",                  
+legend = rownames(Tabla2),
+ylim = c(0, 200),                    
+col=c("moccasin","mediumseagreen"), 
+beside=TRUE                          
+)
+```
+
+# Considerar una variable numérica (que no sea P3, ni Edad) y calcular las medidas estadísticas indicadas en la sección 8. Interpretar cada una de ellas. 
+```{r}
+a <- as.numeric(MisDatos$P1) #Primer examen parcial
+
+
+min(a) #1 la nota minima obtenida
+max(a) #2 la nota max obtenida 
+range(a) #3 Obtenemos la nota (min, max) 
+length(a) #4 Cantidad de prubas parcuales aplicadas
+sum(a) #5 Suma los valores de los datos 
+mean(a) #6 Media aritmética de los resultados de las pruebas
+median(a) #7 Mediana el resultado muestra la nota del medio
+var(a) #8 Varianza muestral, los datos no varian mucho con respecto a la media y promedio
+sqrt(var(a)) #9 Desviación estándar muestral (una forma) los datos no varian mucho con respecto a la media y promedio
+sd(a) #10 Desviación estándar muestral (otra forma) 
+skewness(a) #11 Sesgo leve de los datos
+
+quantile(a, probs=0.80)#M) 80-ésimo percentil o percentil 80, el 20% de los datos es mayor que 4.5    
+
+quantile(a, probs=0.25)#N) Primer cuartil o 25-ésimo percentil, el 75% de los datos es mayor que 2.8    
+
+quantile(a, probs=0.50)#O) Segundo cuartil o 50-ésimo percentil o mediana, el 50% de los datos es mayor que 3.5   
+
+quantile(a, probs=0.75)#P) Tercer cuartil o 75-ésimo percentil el 25% de los datos es mayor que 4.3    
+
+
+```
+
+
+
+
+
+
+
+
+
+
