@@ -1,14 +1,14 @@
 ---
-title: "Tarea"
-author: "Nico"
-date: "2024-03-26"
+title: "Tarea1"
+author: "Nicco"
+date: "2024-03-27"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-# Carga de librerias y los datos
+# Librerias y Datos
 ```{r message=FALSE, warning=FALSE}
 library(ggplot2)
 library(leaflet)
@@ -17,14 +17,14 @@ library(moments)
 library(repmis)
 library(tidyverse)
 
-#datos
+#Datos
 
 url.dat<- "http://bit.ly/Database-Estudiantes" 
 datosCompleto <- read.delim(url.dat)
 
 ```
 
-# 1 A. Crear el dataframe 
+# Crear el dataframe 
 Creamos un dataset Considerando solamente las observaciones que van desde la 2 hasta la 193 y las variables que van desde la 5 hasta la  15 y las variables 20 y 35
 ```{r}
 MisDatos <- datosCompleto[2:193,c(5:15,20:35)] 
@@ -34,11 +34,11 @@ tail(MisDatos)        #C) Por defecto, solo las últimas 6 observaciones
 tail(MisDatos, 2)     #D) Solo las últimas 2 observaciones 
 
 ```
-# Revisamos la estructura
+# Estructura de los datos
 ```{r}
 str(MisDatos)   #A) Estructura de los datos 
 ```
-# Explorar los nombres de las variables
+# Nombres de las variables
 ```{r}
 names(MisDatos)
 ```
@@ -52,11 +52,13 @@ ncol(datosCompleto)
 
 nrow(datosCompleto)
 ```
-# Revisar los tipos de todas las variables del nuevo data frame
+# Tipos de variables
+#### Revisar los tipos de todas las variables del nuevo data frame
 ```{r}
 str(MisDatos)
 ```
-# Construir una tabla de frecuencias para una variable categórica y su correspondiente diagrama de barras
+# Tabla de frecuencias para una variable
+#### Construir una tabla de frecuencias para una variable categórica y su correspondiente diagrama de barras
 ```{r}
 Ley <- as.factor(MisDatos$Ley)
 Tabla1 <- table(Ley); Tabla1
@@ -71,8 +73,8 @@ barplot(Tabla1,
 ) 
 ```
 
-
-# Construir una tabla de frecuencias cruzadas entre dos variables categóricas y su correspondiente diagrama de barras
+# Tabla de frecuencias
+#### Construir un Tabla de frecuencias cruzadas entre dos variables categóricas y su correspondiente diagrama de barras
 ```{r}
 Colegio <- as.factor(MisDatos$Colegio)
 Tabla2 <- table(Ley, Colegio); Tabla2
@@ -89,7 +91,9 @@ beside=TRUE
 )
 ```
 
-# Considerar una variable numérica (que no sea P3, ni Edad) y calcular las medidas estadísticas indicadas en la sección 8. Interpretar cada una de ellas. 
+# Interpretar cada una de ellas 
+#### Considerar una variable numérica (que no sea P3, ni Edad) y calcular las medidas estadísticas indicadas en la sección 
+
 ```{r}
 a <- as.numeric(MisDatos$P1) #Primer examen parcial
 
